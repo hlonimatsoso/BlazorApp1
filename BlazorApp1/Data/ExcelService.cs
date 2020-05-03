@@ -23,8 +23,7 @@ namespace BlazorApp1.Data
         public List<PromoData> PromoData { get; set; }
 
         public PromoChartData PerDay { get { return PromoData.GetPerStoreMetrics(); } }
-
-
+        
         public ExcelService(ExcelReader reader)
         {
             _reader = reader;
@@ -39,8 +38,6 @@ namespace BlazorApp1.Data
             XSSFWorkbook hssfwb = null;
             using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-
-                //workbook = WorkbookFactory.Create(file);
                 hssfwb = new XSSFWorkbook(file);
             }
 
@@ -63,7 +60,6 @@ namespace BlazorApp1.Data
                         NumberOfItemsBought = int.Parse(currentRow.GetCell(5).ToString()),
                         NumberOfEntries = int.Parse(currentRow.GetCell(6).ToString())
                     });
-                    //MessageBox.Show(string.Format("Row {0} = {1}", row, sheet.GetRow(row).GetCell(0).StringCellValue));
                 }
             }
 

@@ -1,0 +1,44 @@
+﻿@using BlazorApp1.Data
+
+<h3>Promo Table</h3>
+
+@if (Data != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Number</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Store</th>
+                <th>Geo Location</th>
+                <th>Number 0f Items Bought</th>
+                <th>Number 0f Entries</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (PromoData promo in Data)
+            {
+                <tr>
+                    <td>
+                        <a alt="Edit">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                    </td>
+                    <td>@promo.Entry</td>
+                    <td>@promo.Date</td>
+                    <td>@promo.Time</td>
+                    <td>@promo.Store</td>
+                    <td>@promo.GeoLocation</td>
+                    <td>@promo.NumberOfItemsBought</td>
+                    <td>@promo.NumberOfEntries</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+@code {
+    [Parameter] public List<PromoData> Data { get; set; }
+}

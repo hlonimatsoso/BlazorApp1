@@ -1,0 +1,30 @@
+﻿@inherits DynamicChartBase
+<div>
+    <h3>Dynamic Chart</h3>
+
+    @if (ChartType == ChartType.Bar)
+    {
+        <Chart @ref="barChart" Type="ChartType.Bar" TItem="double" />
+    }
+
+    @if (ChartType == ChartType.Line)
+    {
+        <LineChart @ref="lineChart" Type="ChartType.Line" TItem="double" />
+    }
+
+    @if (ChartType == ChartType.Pie)
+    {
+        <Chart @ref="pieChart" Type="ChartType.Pie" TItem="double" />
+    }
+
+    @if (ChartType == ChartType.PolarArea)
+    {
+        <Chart @ref="polarAreaChart" Type="ChartType.PolarArea" TItem="double" />
+    }
+
+</div>
+
+
+
+
+
