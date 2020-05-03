@@ -3,9 +3,7 @@ using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BlazorApp1.Data
 {
@@ -18,15 +16,15 @@ namespace BlazorApp1.Data
 
     public class ExcelService
     {
-        private readonly ExcelReader _reader = null;
+       // private readonly ExcelReader _reader = null;
 
         public List<PromoData> PromoData { get; set; }
 
         public PromoChartData PerDay { get { return PromoData.GetPerStoreMetrics(); } }
         
-        public ExcelService(ExcelReader reader)
+        public ExcelService()
         {
-            _reader = reader;
+            //_reader = reader;
             PromoData = SetPromoData();
         }
 
@@ -35,18 +33,19 @@ namespace BlazorApp1.Data
             List<PromoData> result = new List<PromoData> { };
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             IWorkbook workbook;
-            XSSFWorkbook hssfwb = null;
+            
             using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-                hssfwb = new XSSFWorkbook(file);
+                workbook = new XSSFWorkbook(file);
             }
 
-            ISheet sheet = hssfwb.GetSheet("promo1");
+            ISheet sheet = workbook.GetSheet("promo1");
+            
             for (int row = 0; row <= sheet.LastRowNum; row++)
             {
                 var currentRow = sheet.GetRow(row);
                 if (currentRow.Cells[0].StringCellValue == "Date")
-                    continue;
+                    continue; // Skip headings
 
                 if (currentRow != null) //null is when the row only contains empty cells 
                 {

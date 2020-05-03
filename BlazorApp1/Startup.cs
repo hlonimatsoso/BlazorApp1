@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BlazorApp1.Data;
 using Blazorise;
+using System.Net.Http;
 
 namespace BlazorApp1
 {
@@ -30,12 +31,17 @@ namespace BlazorApp1
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
-            services.AddSingleton<ExcelReader>();
+            services.AddHttpClient("home", client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44398/api/");
+            });
             services.AddScoped<ExcelService>();
             services.AddBlazorise(options =>
             {
                 options.ChangeTextOnKeyPress = true;
             }).AddEmptyProviders();
+
+            //services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,11 +60,14 @@ namespace BlazorApp1
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            //app.UseCors(
+            //   options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+            //);
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapDefaultControllerRoute();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
