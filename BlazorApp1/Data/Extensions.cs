@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,18 +8,30 @@ namespace BlazorApp1.Data
 {
     public static class Extensions
     {
+        public static List<string> GetExceleFilesInPath(this string path)
+        {
+            List<string> result = Directory.GetFiles(path)
+                                           .Where(x => x.EndsWith(".xls") || x.EndsWith(".xlsx"))
+                                           .ToList();
+            
+            return result;
+        }
+
         public static PromoChartData GetPerStoreMetrics(this IEnumerable<PromoData> @this)
         {
             var result = new PromoChartData { DisplayLabel = "Entries Per Store" };
 
-            var x = @this.GroupBy(p => p.Store);
-
-            foreach (var group in x)
+            if(@this!=null)
             {
-                result.Labels.Add(group.Key);
-                result.Data.Add(group.Sum(p => p.NumberOfEntries));
-            }
+                var x = @this.GroupBy(p => p.Store);
 
+                foreach (var group in x)
+                {
+                    result.Labels.Add(group.Key);
+                    result.Data.Add(group.Sum(p => p.NumberOfEntries));
+                }
+            }
+            
             return result;
         }
 
@@ -26,12 +39,15 @@ namespace BlazorApp1.Data
         {
             var result = new PromoChartData { DisplayLabel = "Entries Per Geo Location" };
 
-            var x = @this.GroupBy(p => p.GeoLocation);
-
-            foreach (var group in x)
+            if (@this != null)
             {
-                result.Labels.Add(group.Key);
-                result.Data.Add(group.Sum(p => p.NumberOfEntries));
+                var x = @this.GroupBy(p => p.GeoLocation);
+
+                foreach (var group in x)
+                {
+                    result.Labels.Add(group.Key);
+                    result.Data.Add(group.Sum(p => p.NumberOfEntries));
+                }
             }
 
             return result;
@@ -41,12 +57,15 @@ namespace BlazorApp1.Data
         {
             var result = new PromoChartData { DisplayLabel = "Entries Per Number" };
 
-            var x = @this.GroupBy(p => p.Entry);
-
-            foreach (var group in x)
+            if (@this != null)
             {
-                result.Labels.Add(group.Key);
-                result.Data.Add(group.Sum(p => p.NumberOfEntries));
+                var x = @this.GroupBy(p => p.Entry);
+
+                foreach (var group in x)
+                {
+                    result.Labels.Add(group.Key);
+                    result.Data.Add(group.Sum(p => p.NumberOfEntries));
+                }
             }
 
             return result;
@@ -55,13 +74,16 @@ namespace BlazorApp1.Data
         public static PromoChartData GetPerDateMetrics(this IEnumerable<PromoData> @this)
         {
             var result = new PromoChartData { DisplayLabel = "Entries Per Date" };
-
-            var x = @this.GroupBy(p => p.Date);
-
-            foreach (var group in x)
+            
+            if (@this != null)
             {
-                result.Labels.Add(group.Key.ToShortDateString());
-                result.Data.Add(group.Sum(p => p.NumberOfEntries));
+                var x = @this.GroupBy(p => p.Date);
+
+                foreach (var group in x)
+                {
+                    result.Labels.Add(group.Key.ToShortDateString());
+                    result.Data.Add(group.Sum(p => p.NumberOfEntries));
+                }
             }
 
             return result;

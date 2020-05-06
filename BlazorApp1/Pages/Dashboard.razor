@@ -1,0 +1,13 @@
+﻿@inherits DashboardBase
+<h3>Dashboard</h3>
+
+<ExcelDatasource @bind-PromoDataList="@PromoDataList"></ExcelDatasource>
+
+@if (PromoDataList != null)
+{
+    <span>List Count: @PromoDataList.Count</span>
+}
+else
+{
+    <span>Promo data list is NULL</span>
+}

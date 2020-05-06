@@ -1,4 +1,5 @@
-﻿using NPOI.SS.UserModel;
+﻿using Microsoft.Extensions.Options;
+using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
@@ -16,31 +17,43 @@ namespace BlazorApp1.Data
 
     public class ExcelService
     {
-       // private readonly ExcelReader _reader = null;
+        // private readonly ExcelReader _reader = null;
+        IWorkbook workbook;
 
         public List<PromoData> PromoData { get; set; }
 
-        public PromoChartData PerDay { get { return PromoData.GetPerStoreMetrics(); } }
-        
-        public ExcelService()
+        public List<string> Sheets
         {
-            //_reader = reader;
-            PromoData = SetPromoData();
+            get
+            {
+                List<string> result = new List<string>();
+                if (workbook != null)
+                    for (int i = 0; i < workbook.NumberOfSheets; i++)
+                        result.Add(workbook.GetSheetAt(i).SheetName);
+                return result;
+            }
         }
 
-        private List<PromoData> SetPromoData(string path = "file1.xlsx")
+        public PromoChartData PerDay { get { return PromoData.GetPerStoreMetrics(); } }
+
+        public ExcelService(IOptions<Settings> settings)
+        {
+            //_reader = reader;
+            SetPromoData();
+        }
+
+        public List<PromoData> SetPromoData(string path = "file1.xlsx")
         {
             List<PromoData> result = new List<PromoData> { };
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            IWorkbook workbook;
-            
+
             using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 workbook = new XSSFWorkbook(file);
             }
 
-            ISheet sheet = workbook.GetSheet("promo1");
-            
+            ISheet sheet = workbook.GetSheetAt(0);
+
             for (int row = 0; row <= sheet.LastRowNum; row++)
             {
                 var currentRow = sheet.GetRow(row);
@@ -61,7 +74,7 @@ namespace BlazorApp1.Data
                     });
                 }
             }
-
+            PromoData = result;
             return result;
         }
     }

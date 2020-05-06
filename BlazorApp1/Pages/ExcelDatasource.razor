@@ -1,0 +1,46 @@
+﻿@inherits ExcelDatasourceBase
+<div class="row">
+    <div class="col-4">
+        <h3>Excel Datasource</h3>
+    </div>
+    <div class="col-8">
+        Folder: @_selectedFolder
+    </div>
+</div>
+<div class="row">
+    <RadioGroup TValue="string" Name="selectedFileGroup" CheckedValue="@_selectedFile" CheckedValueChanged="@OnSelectedFileChanged">
+        @foreach (string file in _files)
+        {
+            <div class="col-12">
+                <ul>
+                    @if (file.Equals(_selectedFile, StringComparison.OrdinalIgnoreCase))
+                    {
+                        <b>
+                            <li>
+                                <Radio TValue="string" Value="@(file)">@file</Radio> <i>(selected)</i>
+                            </li>
+                        </b>
+                    }
+                    else
+                    {
+                        <li>
+                            <Radio TValue="string" Value="@(file)">@file</Radio>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        }
+    </RadioGroup>
+</div>
+
+<div class="row">
+    <h4>Sheets</h4>
+    <ul>
+        @foreach (string sheet in Sheets)
+        {
+            <li>@sheet</li>
+        }
+    </ul>
+</div>
+

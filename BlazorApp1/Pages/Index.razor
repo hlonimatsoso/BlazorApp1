@@ -1,8 +1,10 @@
 ﻿@page "/"
 
 @using BlazorApp1.Data
-@inject ExcelService excelService
 
+@*@inject ExcelService excelService*@
+
+<Dashboard OnPromoDataListChanged="@UpdateList"></Dashboard>
 
 <div class="row">
     <div class="col-12">
@@ -31,11 +33,24 @@
 
 
 @code{
-    List<PromoData> PromoDataList { get; set; }
+    List<PromoData> _promoList;
+    [Parameter] public List<PromoData> PromoDataList
+    {
+        get { return _promoList; }
+        set
+        {
+            _promoList = value;
+        }
+    }
+
+    public void UpdateList(List<PromoData> list)
+    {
+        _promoList = list;
+    }
 
     protected override Task OnInitializedAsync()
     {
-        PromoDataList = excelService.PromoData;
+        //PromoDataList = excelService.PromoData;
 
         return base.OnInitializedAsync();
     }
