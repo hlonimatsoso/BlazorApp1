@@ -10,6 +10,9 @@ namespace BlazorApp1.Pages
     public class DashboardBase : ComponentBase
     {
         List<PromoData> _promoDataList;
+
+        protected string selectedTab = "GeoLocation";
+        
         [Parameter]
         public List<PromoData> PromoDataList
         {
@@ -17,16 +20,16 @@ namespace BlazorApp1.Pages
             set
             {
                 _promoDataList = value;
-                UpdateParent(value);
+                StateHasChanged();
+                OnPromoDataListChanged.InvokeAsync(value);
             }
         }
 
-        private void UpdateParent(List<PromoData> value)
-        {
-            OnPromoDataListChanged.InvokeAsync(value);
-        }
-
         [Parameter] public EventCallback<List<PromoData>> OnPromoDataListChanged { get; set; }
-
+        
+        protected void OnSelectedTabChanged(string name)
+        {
+            selectedTab = name;
+        }
     }
 }

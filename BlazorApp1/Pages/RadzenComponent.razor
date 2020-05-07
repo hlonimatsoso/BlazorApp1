@@ -1,0 +1,47 @@
+﻿@inherits RadzenComponentBase
+
+<h3>My Radzen Component</h3>
+@if (ChartType == Data.MyChartType.Line)
+{
+    <div class="row">
+        <div class="col-12">
+            <label>Smooth <RadzenCheckBox @bind-Value="@smooth" Name="smooth"></RadzenCheckBox></label>
+            <RadzenChart Style="">
+                <RadzenLineSeries Smooth="@smooth" Data="@Series" CategoryProperty="Category" Title="@Title" LineType="LineType.Dashed" ValueProperty="Value">
+                    <RadzenMarkers MarkerType="MarkerType.Square" />
+                </RadzenLineSeries>
+                @*<RadzenLineSeries Smooth="@smooth" Data="@revenue2020" CategoryProperty="Date" Title="2020" ValueProperty="Revenue">
+                        <RadzenMarkers MarkerType="MarkerType.Circle" />
+                    </RadzenLineSeries>
+                    <RadzenCategoryAxis Padding="20" FormatString="{0:MMM}" />
+                    <RadzenValueAxis Formatter="@FormatAsUSD">
+                        <RadzenGridLines Visible="true" />
+                        <RadzenAxisTitle Text="Revenue in USD" />
+                    </RadzenValueAxis>*@
+            </RadzenChart>
+        </div>
+    </div>
+}
+
+@if (ChartType == Data.MyChartType.Pie)
+{
+    <RadzenChart>
+        <RadzenPieSeries Data="@Series" CategoryProperty="Category" Title="@Title" ValueProperty="Value" />
+    </RadzenChart>
+}
+
+@if (ChartType == Data.MyChartType.Bar)
+{
+    <div class="row">
+        <div class="col-12">
+            <RadzenChart>
+                <RadzenColumnSeries Data="@Series" CategoryProperty="Category" Title="@Title" ValueProperty="Value" />
+                <RadzenColumnOptions Radius="5" />
+                @*<RadzenValueAxis Formatter="@FormatAsUSD">
+                    <RadzenGridLines Visible="true" />
+                    <RadzenAxisTitle Text="Revenue in USD" />
+                </RadzenValueAxis>*@
+            </RadzenChart>
+        </div>
+    </div>
+}

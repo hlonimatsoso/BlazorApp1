@@ -6,30 +6,31 @@
 
 <Dashboard OnPromoDataListChanged="@UpdateList"></Dashboard>
 
+
 <div class="row">
     <div class="col-12">
         <PromoTable Data="@PromoDataList"></PromoTable>
     </div>
 </div>
 
-<div class="row">
+@*<div class="row">
     <div class="col-sm-6">
-        <DynamicChart PromoData="@PromoDataList"></DynamicChart>
+        <DynamicChart ChartData="@PromoDataList.GetPerGeoLocationMetrics()"></DynamicChart>
     </div>
     <div class="col-sm-6">
-        <DynamicChart ChartType="ChartType.Line" PromoData="@PromoDataList"></DynamicChart>
+        <DynamicChart ChartType="ChartType.Line" ChartData="@PromoDataList.GetPerStoreMetrics()"></DynamicChart>
     </div>
-</div>
+</div>*@
 
 
-<div class="row">
+@*<div class="row">
     <div class="col-sm-6">
-        <DynamicChart ChartType="ChartType.Pie" PromoData="@PromoDataList"></DynamicChart>
-    </div>
-    <div class="col-sm-6">
-        <DynamicChart ChartType="ChartType.PolarArea" PromoData="@PromoDataList"></DynamicChart>
-    </div>
-</div>
+            <DynamicChart ChartType="ChartType.Pie" PromoData="@PromoDataList"></DynamicChart>
+        </div>
+        <div class="col-sm-6">
+            <DynamicChart ChartType="ChartType.PolarArea" PromoData="@PromoDataList"></DynamicChart>
+        </div>
+</div>*@
 
 
 @code{
@@ -45,12 +46,16 @@
 
     public void UpdateList(List<PromoData> list)
     {
-        _promoList = list;
+        PromoDataList = list;
+                
+        OnInitialized();
     }
 
     protected override Task OnInitializedAsync()
     {
         //PromoDataList = excelService.PromoData;
+
+        
 
         return base.OnInitializedAsync();
     }

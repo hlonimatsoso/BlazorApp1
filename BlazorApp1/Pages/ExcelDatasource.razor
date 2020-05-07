@@ -7,39 +7,32 @@
         Folder: @_selectedFolder
     </div>
 </div>
-<div class="row">
-    <RadioGroup TValue="string" Name="selectedFileGroup" CheckedValue="@_selectedFile" CheckedValueChanged="@OnSelectedFileChanged">
-        @foreach (string file in _files)
-        {
-            <div class="col-12">
-                <ul>
-                    @if (file.Equals(_selectedFile, StringComparison.OrdinalIgnoreCase))
-                    {
-                        <b>
-                            <li>
-                                <Radio TValue="string" Value="@(file)">@file</Radio> <i>(selected)</i>
-                            </li>
-                        </b>
-                    }
-                    else
-                    {
-                        <li>
-                            <Radio TValue="string" Value="@(file)">@file</Radio>
-                        </li>
-                    }
 
-                </ul>
-            </div>
-        }
-    </RadioGroup>
-</div>
+<RadzenDropDown @ref="_dropDown"
+                AllowClear="false"
+                TValue="string"
+                Data="@_files"
+                Style="margin-bottom: 20px; width: auto"
+                Change="@(args=>OnSelectedFileChanged(args.ToString()))" />
+
+<RadzenListBox @bind-Value="@SelectedSheet" Data="@Sheets" TextProperty="CompanyName" ValueProperty="CustomerID" Style="margin-bottom: 20px;height:200px;" Change="@(args => SelectedSheet= (string)args)" />
 
 <div class="row">
     <h4>Sheets</h4>
     <ul>
         @foreach (string sheet in Sheets)
         {
-            <li>@sheet</li>
+            <li>
+                @if (sheet.Equals(SelectedSheet, StringComparison.OrdinalIgnoreCase))
+                {
+                    <b>@sheet</b>
+                }
+                else
+                {
+                    @sheet
+                }
+
+            </li>
         }
     </ul>
 </div>

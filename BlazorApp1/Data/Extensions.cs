@@ -8,12 +8,22 @@ namespace BlazorApp1.Data
 {
     public static class Extensions
     {
+        public static List<ChartData<int>> GetChartData(this PromoChartData data)
+        {
+            List<ChartData<int>> result = new List<ChartData<int>> { };
+
+            for (int i = 0; i < data.Data.Count; i++)
+                result.Add(new ChartData<int> { Category = data.Labels[i], Value = (int)data.Data[i] });
+
+            return result;
+        }
+
         public static List<string> GetExceleFilesInPath(this string path)
         {
             List<string> result = Directory.GetFiles(path)
                                            .Where(x => x.EndsWith(".xls") || x.EndsWith(".xlsx"))
                                            .ToList();
-            
+
             return result;
         }
 
@@ -21,7 +31,7 @@ namespace BlazorApp1.Data
         {
             var result = new PromoChartData { DisplayLabel = "Entries Per Store" };
 
-            if(@this!=null)
+            if (@this != null)
             {
                 var x = @this.GroupBy(p => p.Store);
 
@@ -31,7 +41,7 @@ namespace BlazorApp1.Data
                     result.Data.Add(group.Sum(p => p.NumberOfEntries));
                 }
             }
-            
+
             return result;
         }
 
@@ -74,7 +84,7 @@ namespace BlazorApp1.Data
         public static PromoChartData GetPerDateMetrics(this IEnumerable<PromoData> @this)
         {
             var result = new PromoChartData { DisplayLabel = "Entries Per Date" };
-            
+
             if (@this != null)
             {
                 var x = @this.GroupBy(p => p.Date);

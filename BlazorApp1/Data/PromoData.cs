@@ -38,4 +38,11 @@ namespace BlazorApp1.Data
         public List<double> Data { get; set; }
 
     }
+
+    public class ChartData<T>
+    {
+        public string Category { get; set; }
+        public T Value{ get; set; }
+
+    }
 }

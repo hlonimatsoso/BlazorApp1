@@ -1,4 +1,9 @@
 ﻿@inherits DashboardBase
+
+@page "/dashboard"
+
+@using BlazorApp1.Data
+
 <h3>Dashboard</h3>
 
 <ExcelDatasource @bind-PromoDataList="@PromoDataList"></ExcelDatasource>
@@ -11,3 +16,22 @@ else
 {
     <span>Promo data list is NULL</span>
 }
+
+<div class="row">
+    <div class="col">
+        <RadzenComponent Source="@PromoDataList.GetPerGeoLocationMetrics()" Title="Per Geo Location"></RadzenComponent>
+    </div>
+    <div class="col">
+        <RadzenComponent ChartType="MyChartType.Pie" Source="@PromoDataList.GetPerStoreMetrics()" Title="Per Store"></RadzenComponent>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <RadzenComponent ChartType="MyChartType.Bar" Source="@PromoDataList.GetPerDateMetrics()" Title="Per Date"></RadzenComponent>
+    </div>
+    <div class="col">
+        <RadzenComponent ChartType="MyChartType.Pie" Source="@PromoDataList.GetPerEntryMetrics()" Title="Per Entry"></RadzenComponent>
+    </div>
+</div>
+
+

@@ -34,7 +34,9 @@ namespace BlazorApp1.Data
             }
         }
 
-        public PromoChartData PerDay { get { return PromoData.GetPerStoreMetrics(); } }
+
+
+        //public PromoChartData PerDay { get { return PromoData.GetPerStoreMetrics(); } }
 
         public ExcelService(IOptions<Settings> settings)
         {
@@ -60,7 +62,7 @@ namespace BlazorApp1.Data
                 if (currentRow.Cells[0].StringCellValue == "Date")
                     continue; // Skip headings
 
-                if (currentRow != null) //null is when the row only contains empty cells 
+                if (currentRow != null && currentRow.Cells.Count > 1) //null is when the row only contains empty cells 
                 {
                     result.Add(new Data.PromoData
                     {

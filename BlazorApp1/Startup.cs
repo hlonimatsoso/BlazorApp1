@@ -12,6 +12,8 @@ using Microsoft.Extensions.Hosting;
 using BlazorApp1.Data;
 using Blazorise;
 using System.Net.Http;
+using Blazorise.Bootstrap;
+using Blazorise.Icons.FontAwesome;
 
 namespace BlazorApp1
 {
@@ -40,7 +42,7 @@ namespace BlazorApp1
             services.AddBlazorise(options =>
             {
                 options.ChangeTextOnKeyPress = true;
-            }).AddEmptyProviders();
+            }).AddBootstrapProviders().AddFontAwesomeIcons();
 
             //services.AddCors();
         }
@@ -64,6 +66,8 @@ namespace BlazorApp1
             //app.UseCors(
             //   options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
             //);
+            app.ApplicationServices.UseBootstrapProviders().UseFontAwesomeIcons();
+            
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

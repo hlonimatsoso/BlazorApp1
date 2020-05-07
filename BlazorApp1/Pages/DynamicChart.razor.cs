@@ -12,24 +12,31 @@ namespace BlazorApp1.Pages
     {
         //[Inject] ExcelService excelService { get; set; }
 
+        PromoChartData _chartData;
+
+        [Parameter]
+        public PromoChartData ChartData
+        {
+            get { return _chartData; }
+            set
+            {
+                _chartData = value;
+                OnInitialized();
+            }
+        }
+
         [Parameter] public ChartType ChartType { get; set; } = ChartType.Bar;
+
+        [Parameter] public string ChartName { get; set; } = "No Name";
+
 
         List<string> backgroundColors = new List<string> { ChartColor.FromRgba(255, 99, 132, 0.2f), ChartColor.FromRgba(54, 162, 235, 0.2f), ChartColor.FromRgba(255, 206, 86, 0.2f), ChartColor.FromRgba(75, 192, 192, 0.2f), ChartColor.FromRgba(153, 102, 255, 0.2f), ChartColor.FromRgba(255, 159, 64, 0.2f) };
         List<string> borderColors = new List<string> { ChartColor.FromRgba(255, 99, 132, 1f), ChartColor.FromRgba(54, 162, 235, 1f), ChartColor.FromRgba(255, 206, 86, 1f), ChartColor.FromRgba(75, 192, 192, 1f), ChartColor.FromRgba(153, 102, 255, 1f), ChartColor.FromRgba(255, 159, 64, 1f) };
 
-        protected LineChart<double> lineChart;
-        protected Chart<double> barChart;
-        protected Chart<double> pieChart;
-        protected Chart<double> polarAreaChart;
-
-        [Parameter] public List<PromoData> PromoData { get; set; }
-
-        PromoChartData LineChartData { get; set; }
-        PromoChartData BarChartData { get; set; }
-        PromoChartData PieChartData { get; set; }
-        PromoChartData PolarChartData { get; set; }
-
-
+        //protected LineChart<double> lineChart;
+        protected Chart<double> chart;
+        //protected Chart<double> pieChart;
+        //protected Chart<double> polarAreaChart;
 
 
         protected override Task OnInitializedAsync()
@@ -39,28 +46,35 @@ namespace BlazorApp1.Pages
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            //lineChart = new LineChart<double>();
-            LineChartData = PromoData.GetPerStoreMetrics();
-            PieChartData = PromoData.GetPerGeoLocationMetrics();
-            BarChartData = PromoData.GetPerEntryMetrics();
-            PolarChartData = PromoData.GetPerDateMetrics();
 
+            //if (lineChart != null)
+            //   await HandleRedraw(lineChart, GetLineChartDataset, ChartData.Labels);
 
-            await Task.WhenAll(
-                HandleRedraw(lineChart, GetLineChartDataset, LineChartData.Labels),
-                HandleRedraw(barChart, GetBarChartDataset, BarChartData.Labels),
-                HandleRedraw(pieChart, GetPieChartDataset, PieChartData.Labels),
-                HandleRedraw(polarAreaChart, GetPolarAreaChartDataset, PolarChartData.Labels)
-            );
+            if (chart != null)
+                await HandleRedraw(chart, GetBarChartDataset, ChartData.Labels);
+
+            //if (pieChart != null)
+            //    await HandleRedraw(pieChart, GetPieChartDataset, ChartData.Labels);
+
+            //if (polarAreaChart != null)
+            //    await HandleRedraw(polarAreaChart, GetPolarAreaChartDataset, ChartData.Labels);
+
+            //await Task.WhenAll(
+
+            //    HandleRedraw(lineChart, GetLineChartDataset, ChartData.Labels),
+            //    HandleRedraw(barChart, GetBarChartDataset, ChartData.Labels),
+            //    HandleRedraw(pieChart, GetPieChartDataset, ChartData.Labels),
+            //    HandleRedraw(polarAreaChart, GetPolarAreaChartDataset, ChartData.Labels)
+            //);
 
             await base.OnAfterRenderAsync(firstRender);
 
         }
 
-        async Task HandleRedraw<TDataSet, TItem, TOptions, TModel>(Blazorise.Charts.BaseChart<TDataSet, TItem, TOptions, TModel> chart, Func<TDataSet> getDataSet, IEnumerable<string> labels)
-        where TDataSet : ChartDataset<TItem>
-        where TOptions : ChartOptions
-        where TModel : ChartModel
+        protected async Task HandleRedraw<TDataSet, TItem, TOptions, TModel>(Blazorise.Charts.BaseChart<TDataSet, TItem, TOptions, TModel> chart, Func<TDataSet> getDataSet, IEnumerable<string> labels)
+          where TDataSet : ChartDataset<TItem>
+          where TOptions : ChartOptions
+          where TModel : ChartModel
         {
             if (chart != null)
             {
@@ -76,12 +90,17 @@ namespace BlazorApp1.Pages
             }
         }
 
+        protected void Update()
+        {
+
+        }
+
         LineChartDataset<double> GetLineChartDataset()
         {
             return new LineChartDataset<double>
             {
-                Label = LineChartData.DisplayLabel,
-                Data = LineChartData.Data,
+                Label = ChartData.DisplayLabel,
+                Data = ChartData.Data,
                 BackgroundColor = backgroundColors,
                 BorderColor = borderColors,
                 Fill = true,
@@ -91,12 +110,12 @@ namespace BlazorApp1.Pages
             };
         }
 
-        BarChartDataset<double> GetBarChartDataset()
+       protected BarChartDataset<double> GetBarChartDataset()
         {
             return new BarChartDataset<double>
             {
-                Label = BarChartData.DisplayLabel,
-                Data = BarChartData.Data,
+                Label = ChartData.DisplayLabel,
+                Data = ChartData.Data,
                 BackgroundColor = backgroundColors,
                 BorderColor = borderColors,
                 BorderWidth = 1
@@ -108,8 +127,8 @@ namespace BlazorApp1.Pages
             return new PieChartDataset<double>
 
             {
-                Label = PieChartData.DisplayLabel,
-                Data = PieChartData.Data,
+                Label = ChartData.DisplayLabel,
+                Data = ChartData.Data,
                 BackgroundColor = backgroundColors,
                 BorderColor = borderColors,
                 BorderWidth = 1
@@ -121,8 +140,8 @@ namespace BlazorApp1.Pages
         {
             return new PolarAreaChartDataset<double>
             {
-                Label = PolarChartData.DisplayLabel,
-                Data = PolarChartData.Data,
+                Label = ChartData.DisplayLabel,
+                Data = ChartData.Data,
                 BackgroundColor = backgroundColors,
                 BorderColor = borderColors,
                 BorderWidth = 1
