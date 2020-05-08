@@ -15,7 +15,7 @@
                 Style="margin-bottom: 20px; width: auto"
                 Change="@(args=>OnSelectedFileChanged(args.ToString()))" />
 
-<RadzenListBox @bind-Value="@SelectedSheet" Data="@Sheets" TextProperty="CompanyName" ValueProperty="CustomerID" Style="margin-bottom: 20px;height:200px;" Change="@(args => SelectedSheet= (string)args)" />
+<RadzenListBox @bind-Value="@_selectedSheet" Data="@Sheets" TextProperty="CompanyName" ValueProperty="CustomerID" Style="margin-bottom: 20px;height:200px;" TValue="string" Change="@(args=> OnSelectedSheetChanged(args.ToString()))" />
 
 <div class="row">
     <h4>Sheets</h4>
@@ -23,7 +23,7 @@
         @foreach (string sheet in Sheets)
         {
             <li>
-                @if (sheet.Equals(SelectedSheet, StringComparison.OrdinalIgnoreCase))
+                @if (sheet.Equals(_selectedSheet, StringComparison.OrdinalIgnoreCase))
                 {
                     <b>@sheet</b>
                 }

@@ -23,7 +23,9 @@ namespace BlazorApp1.Pages
 
         protected List<string> Sheets { get { return ExcelService.Sheets; } }
 
-        public string SelectedSheet { get; set; }
+        public string _selectedSheet { get; set; }
+
+        [Parameter] public EventCallback<string> SelectedSheetChanged { get; set; }
 
         [Inject] public ExcelService ExcelService { get; set; }
 
@@ -44,9 +46,22 @@ namespace BlazorApp1.Pages
 
             ExcelService.SetPromoData(_selectedFile);
 
+            ExcelService.SetCurrentSheet();
+            
             await PromoDataListChanged.InvokeAsync(PromoDataList);
 
             await base.OnInitializedAsync();
+        }
+
+        protected void OnSelectedSheetChanged(string value)
+        {
+            _selectedSheet = value;
+
+            ExcelService.SetCurrentSheet(_selectedSheet);
+
+            SelectedSheetChanged.InvokeAsync(value).Wait();
+            PromoDataListChanged.InvokeAsync(PromoDataList).Wait();
+
         }
 
         protected void OnSelectedFileChanged(string value)
