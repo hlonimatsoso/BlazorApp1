@@ -8,29 +8,21 @@
 
 <ExcelDatasource @bind-PromoDataList="@PromoDataList"></ExcelDatasource>
 
-@if (PromoDataList != null)
-{
-    <span>List Count: @PromoDataList.Count</span>
-}
-else
-{
-    <span>Promo data list is NULL</span>
-}
 
 <div class="row">
     <div class="col">
-        <RadzenComponent Source="@PromoDataList.GetPerGeoLocationMetrics()" Title="Per Geo Location"></RadzenComponent>
+        <RadzenComponent Source="@PromoDataList.GetPerGeoLocationMetrics()" Title="Geo Location" Description="Per Geo Location"></RadzenComponent>
     </div>
     <div class="col">
-        <RadzenComponent ChartType="MyChartType.Pie" Source="@PromoDataList.GetPerStoreMetrics()" Title="Per Store"></RadzenComponent>
+        <RadzenComponent ChartType="MyChartType.Pie" Source="@PromoDataList.GetPerStoreMetrics()" Title="Store" Description="Per Store"></RadzenComponent>
     </div>
 </div>
 <div class="row">
     <div class="col">
-        <RadzenComponent ChartType="MyChartType.Bar" Source="@PromoDataList.GetPerDateMetrics()" Title="Per Date"></RadzenComponent>
+        <RadzenComponent ChartType="MyChartType.Bar" Source="@PromoDataList.GetPerDateMetrics()" Title="Date" Description="Per Date"></RadzenComponent>
     </div>
     <div class="col">
-        <RadzenComponent ChartType="MyChartType.Pie" Source="@PromoDataList.GetPerEntryMetrics()" Title="Per Entry"></RadzenComponent>
+        <RadzenComponent ChartType="MyChartType.Pie" Source="@PromoDataList.GetPerEntryMetrics()" Title="Entry" Description="Per Entry"></RadzenComponent>
     </div>
 </div>
 

@@ -15,7 +15,10 @@ namespace BlazorApp1.Pages
 
         [Parameter] public PromoChartData Source { get; set; }
 
-        [Parameter] public string Title { get; set; } = "Not Set";
+        [Parameter] public string Title { get; set; } = "Title Not Set";
+
+        [Parameter] public string Description { get; set; } = "Description Not Set";
+
 
         [Parameter] public MyChartType ChartType { get; set; } = MyChartType.Line;
 

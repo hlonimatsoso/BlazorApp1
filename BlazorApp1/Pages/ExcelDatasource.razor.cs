@@ -13,11 +13,16 @@ namespace BlazorApp1.Pages
     {
         protected RadzenDropDown<string> _dropDown;
 
+        protected RadzenRadioButtonList<string> _selectedSheetButtons;
+        
         protected List<string> _folderPaths;
 
         protected List<string> _files;
 
         protected string _selectedFolder;
+
+        protected bool _isSheetSelectionVisible;
+
 
         protected string _selectedFile { get; set; }
 
@@ -76,6 +81,8 @@ namespace BlazorApp1.Pages
         protected override Task OnAfterRenderAsync(bool firstRender)
         {
             _dropDown.SelectedItem = _selectedFile;
+
+            //_selectedSheetButtons.Value = _selectedSheet;
 
             return base.OnAfterRenderAsync(firstRender);
         }
