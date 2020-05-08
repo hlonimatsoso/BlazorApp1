@@ -7,6 +7,6 @@ namespace BlazorApp1.Data
 {
     public enum MyChartType
     {
-        Bar, Line, Pie
+        Bar, Line, Pie, Donut, Area
     }
 }

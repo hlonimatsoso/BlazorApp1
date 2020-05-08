@@ -10,12 +10,19 @@
 
 <div class="row">
     <div class="col-8">
-        <RadzenDropDown @ref="_dropDown"
-                        AllowClear="false"
-                        TValue="string"
-                        Data="@_files"
-                        Style="margin-bottom: 20px; width: auto"
-                        Change="@(args=>OnSelectedFileChanged(args.ToString()))" />
+        <div class="row">
+            <div class="col-10">
+                <RadzenDropDown @ref="_dropDown"
+                                AllowClear="false"
+                                TValue="string"
+                                Data="@_files"
+                                Style="margin-bottom: 20px; width: auto"
+                                Change="@(args=>OnSelectedFileChanged(args.ToString()))" />
+            </div><div class="col">
+                <i>(@ExcelService.PromoData.Count)</i>
+
+            </div>
+        </div>
     </div>
     <div class="col-4">
         Show Sheets <RadzenCheckBox @bind-Value="@_isSheetSelectionVisible" Style="margin-bottom: 20px" TValue="bool" Change="@(args => _isSheetSelectionVisible = args)" />

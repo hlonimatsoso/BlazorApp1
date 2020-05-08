@@ -39,9 +39,27 @@
                 <RadzenColumnSeries Data="@Series" CategoryProperty="Category" Title="@Title" ValueProperty="Value" />
                 <RadzenColumnOptions Radius="5" />
                 @*<RadzenValueAxis Formatter="@FormatAsUSD">
-                    <RadzenGridLines Visible="true" />
-                    <RadzenAxisTitle Text="Revenue in USD" />
-                </RadzenValueAxis>*@
+                        <RadzenGridLines Visible="true" />
+                        <RadzenAxisTitle Text="Revenue in USD" />
+                    </RadzenValueAxis>*@
+            </RadzenChart>
+        </div>
+    </div>
+}
+
+@if (ChartType == Data.MyChartType.Donut)
+{
+    <div class="row">
+        <div class="col-12">
+            <RadzenChart>
+                <RadzenDonutSeries Data="@Series" CategoryProperty="Category" ValueProperty="Value">
+                    <TitleTemplate>
+                        <div class="rz-donut-content">
+                            <div>@Title</div>
+                            <div>:)</div>
+                        </div>
+                    </TitleTemplate>
+                </RadzenDonutSeries>
             </RadzenChart>
         </div>
     </div>
