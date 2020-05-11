@@ -1,14 +1,15 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
-myChart {
-    color: deeppink;
-    font-size: large;
-    width: 100px;
-    border: dashed;
+.myCentre {
+    width: auto;
+    margin: 0 auto;
+    padding: 20px;
+    text-align:center;
+    font-family:'Century Gothic'
 }
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Book Antiqua', Helvetica, Arial, sans-serif;
 }
 
 a, .btn-link {

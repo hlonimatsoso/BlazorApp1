@@ -1,9 +1,7 @@
 ﻿@page "/fileUpload"
 @inject IHttpClientFactory clientfactory
 
-<h3>FileUpload</h3>
-
-<h1>Single file</h1>
+<h3>Single fileFile Upload</h3>
 
 <p>A single file input that uploads automatically on file selection</p>
 
@@ -36,7 +34,7 @@
             var content = new MultipartFormDataContent {
                 { new ByteArrayContent(ms.GetBuffer()), "\"upload\"", file.Name }
             };
-           var x = await client.PostAsync("upload", content);
+            var x = await client.PostAsync("upload", content);
         }
     }
 }
