@@ -6,22 +6,24 @@
 
 <h3>Dashboard</h3>
 
-<ExcelDatasource @bind-PromoDataList="@PromoDataList"></ExcelDatasource>
+<div class="shadow p-3 mb-5 rounded">
+    <ExcelDatasource @bind-PromoDataList="@PromoDataList"></ExcelDatasource>
+</div>
 
 
 <div class="row">
-    <div class="col">
+    <div class="col shadow p-3 mb-5 bg-white rounded">
         <RadzenComponent Source="@PromoDataList.GetPerGeoLocationMetrics()" Title="Geo Location" Description="Per Geo Location"></RadzenComponent>
     </div>
-    <div class="col">
+    <div class="col shadow p-3 mb-5 bg-white rounded">
         <RadzenComponent ChartType="MyChartType.Pie" Source="@PromoDataList.GetPerStoreMetrics()" Title="Store" Description="Per Store"></RadzenComponent>
     </div>
 </div>
 <div class="row">
-    <div class="col">
+    <div class="col shadow p-3 mb-5 bg-white rounded">
         <RadzenComponent ChartType="MyChartType.Bar" Source="@PromoDataList.GetPerDateMetrics()" Title="Date" Description="Per Date"></RadzenComponent>
     </div>
-    <div class="col">
+    <div class="col shadow p-3 mb-5 bg-white rounded">
         <RadzenComponent ChartType="MyChartType.Donut" Source="@PromoDataList.GetPerEntryMetrics()" Title="Entry" Description="Per Entry"></RadzenComponent>
     </div>
 </div>

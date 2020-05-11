@@ -2,62 +2,18 @@
 
 @using BlazorApp1.Data
 
-@*@inject ExcelService excelService*@
-
-<Dashboard OnPromoDataListChanged="@UpdateList"></Dashboard>
+@*<Dashboard OnPromoDataListChanged="@UpdateList"></Dashboard>*@
 
 
-<div class="row">
-    <div class="col-12">
-        <PromoTable Data="@PromoDataList"></PromoTable>
-    </div>
+<div class="shadow p-3 mb-5 rounded">
+    <ExcelDatasource @bind-PromoDataList="@PromoDataList"></ExcelDatasource>
 </div>
 
-@*<div class="row">
-    <div class="col-sm-6">
-        <DynamicChart ChartData="@PromoDataList.GetPerGeoLocationMetrics()"></DynamicChart>
-    </div>
-    <div class="col-sm-6">
-        <DynamicChart ChartType="ChartType.Line" ChartData="@PromoDataList.GetPerStoreMetrics()"></DynamicChart>
-    </div>
-</div>*@
-
-
-@*<div class="row">
-    <div class="col-sm-6">
-            <DynamicChart ChartType="ChartType.Pie" PromoData="@PromoDataList"></DynamicChart>
-        </div>
-        <div class="col-sm-6">
-            <DynamicChart ChartType="ChartType.PolarArea" PromoData="@PromoDataList"></DynamicChart>
-        </div>
-</div>*@
+<div class="shadow p-3 mb-5 bg-white rounded">
+    <PromoTable Data="@PromoDataList"></PromoTable>
+</div>
 
 
 @code{
-    List<PromoData> _promoList;
-    [Parameter] public List<PromoData> PromoDataList
-    {
-        get { return _promoList; }
-        set
-        {
-            _promoList = value;
-        }
-    }
-
-    public void UpdateList(List<PromoData> list)
-    {
-        PromoDataList = list;
-                
-        OnInitialized();
-    }
-
-    protected override Task OnInitializedAsync()
-    {
-        //PromoDataList = excelService.PromoData;
-
-        
-
-        return base.OnInitializedAsync();
-    }
-
+    [Parameter] public List<PromoData> PromoDataList { get; set; }
 }

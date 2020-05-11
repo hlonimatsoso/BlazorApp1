@@ -1,7 +1,7 @@
 ﻿@inherits ExcelDatasourceBase
 <div class="row">
     <div class="col-3">
-        <h3>Excel Datasource</h3>
+        <h3>@SelectedFileName</h3>
     </div>
     <div class="col-9">
         Folder: @_selectedFolder
@@ -9,43 +9,50 @@
 </div>
 
 <div class="row">
-    <div class="col-8">
+    <div class="col">
+        <RadzenDropDown @ref="_dropDown"
+                        AllowClear="false"
+                        TValue="string"
+                        Data="@_files"
+                        Style="margin-bottom: 20px; width: auto"
+                        Change="@(args=>OnSelectedFileChanged(args.ToString()))" />
+    </div>
+    <div class="col">
         <div class="row">
-            <div class="col-10">
-                <RadzenDropDown @ref="_dropDown"
-                                AllowClear="false"
-                                TValue="string"
-                                Data="@_files"
-                                Style="margin-bottom: 20px; width: auto"
-                                Change="@(args=>OnSelectedFileChanged(args.ToString()))" />
-            </div><div class="col">
+            <div class="col">
                 <i>(@ExcelService.PromoData.Count)</i>
+            </div>
+            <div class="col d-inline">
+                <RadzenCheckBox @bind-Value="@_isSheetSelectionVisible" Style="margin-bottom: 20px" TValue="bool" Change="@(args => _isSheetSelectionVisible = args)" /> Show Sheets
+            </div>
+            <div class="col">
 
+                @if (_isSheetSelectionVisible)
+                {
+                    <div class="row">
+                        <div class="col-12">
+                            <RadzenRadioButtonList @ref="_selectedSheetButtons" @bind-Value="@_selectedSheet" TValue="string" Change="@(args=> OnSelectedSheetChanged(args.ToString()))">
+                                <Items>
+                                    @foreach (string sheet in Sheets)
+                                    {
+                                        <RadzenRadioButtonListItem Text="@sheet" Value="sheet" />
+                                    }
+                                </Items>
+                            </RadzenRadioButtonList>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
+        
     </div>
-    <div class="col-4">
-        Show Sheets <RadzenCheckBox @bind-Value="@_isSheetSelectionVisible" Style="margin-bottom: 20px" TValue="bool" Change="@(args => _isSheetSelectionVisible = args)" />
+    <div class="col">
+
     </div>
 </div>
 
 
 
-@if (_isSheetSelectionVisible)
-{
-    <div class="row">
-        <div class="col-12">
-            <RadzenRadioButtonList @ref="_selectedSheetButtons" @bind-Value="@_selectedSheet" TValue="string" Change="@(args=> OnSelectedSheetChanged(args.ToString()))">
-                <Items>
-                    @foreach (string sheet in Sheets)
-                    {
-                        <RadzenRadioButtonListItem Text="@sheet" Value="sheet" />
-                    }
-                </Items>
-            </RadzenRadioButtonList>
-        </div>
-    </div>
-}
 
 
 @*<div class="row">

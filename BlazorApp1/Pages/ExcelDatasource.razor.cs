@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,7 +15,7 @@ namespace BlazorApp1.Pages
         protected RadzenDropDown<string> _dropDown;
 
         protected RadzenRadioButtonList<string> _selectedSheetButtons;
-        
+
         protected List<string> _folderPaths;
 
         protected List<string> _files;
@@ -36,6 +37,7 @@ namespace BlazorApp1.Pages
 
         [Inject] IOptions<Settings> Settings { get; set; }
 
+        protected string SelectedFileName { get { return new FileInfo(_selectedFile).Name; } }
 
         [Parameter] public List<PromoData> PromoDataList { get { return ExcelService.PromoData; } set { } }
 
@@ -52,7 +54,7 @@ namespace BlazorApp1.Pages
             ExcelService.SetPromoData(_selectedFile);
 
             ExcelService.SetCurrentSheet();
-            
+
             await PromoDataListChanged.InvokeAsync(PromoDataList);
 
             await base.OnInitializedAsync();
