@@ -46,7 +46,8 @@ namespace BlazorApp1.Pages
         protected async override Task OnInitializedAsync()
         {
             _folderPaths = Settings.Value.Paths.ToList();
-            _selectedFolder = _folderPaths.First();
+            _selectedFolder = Path.Combine(Directory.GetCurrentDirectory(), _folderPaths.First());
+
             _files = _selectedFolder.GetExceleFilesInPath().ToList();
 
             _selectedFile = _files.First();

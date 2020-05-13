@@ -8,5 +8,6 @@ namespace BlazorApp1.Data
     public class Settings
     {
         public string[] Paths { get; set; }
+        public string DefaultSheet { get; set; }
     }
 }

@@ -6,10 +6,24 @@
 
 <h3 class="myCentre">Dashboard</h3>
 
-<div class="shadow p-3 mb-5 rounded">
-    <ExcelDatasource @bind-PromoDataList="@PromoDataList"></ExcelDatasource>
+<div class="row">
+    <div class="col-12 shadow p-3 mb-5 rounded">
+        <ExcelDatasource @bind-PromoDataList="@PromoDataList"></ExcelDatasource>
+    </div>
 </div>
 
+
+<div class="row">
+    <div class="col-12 shadow p-3 mb-5 bg-white rounded">
+        <RadzenComponent ChartType="MyChartType.Bar" Source="@PromoDataList.GetPerGeoLocationMetrics()" Title="Geo Location" Description="Per Geo Location"></RadzenComponent>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 shadow p-3 mb-5 bg-white rounded">
+        <RadzenComponent Source="@PromoDataList.GetPerGeoLocationMetrics()" Title="Geo Location" Description="Per Geo Location"></RadzenComponent>
+    </div>
+</div>
 
 <div class="row">
     <div class="col shadow p-3 mb-5 bg-white rounded">
