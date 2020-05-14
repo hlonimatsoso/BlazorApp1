@@ -1,6 +1,7 @@
 ﻿using BlazorApp1.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
+using Microsoft.JSInterop;
 using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,9 @@ namespace BlazorApp1.Pages
 
         [Parameter] public EventCallback<List<PromoData>> PromoDataListChanged { get; set; }
 
+        [Inject] public IJSRuntime jsRuntime { get; set; }
+
+
         protected async override Task OnInitializedAsync()
         {
             _folderPaths = Settings.Value.Paths.ToList();
@@ -68,7 +72,10 @@ namespace BlazorApp1.Pages
             ExcelService.SetCurrentSheet(_selectedSheet);
 
             SelectedSheetChanged.InvokeAsync(value).Wait();
+
             PromoDataListChanged.InvokeAsync(PromoDataList).Wait();
+
+            jsRuntime.InvokeVoidAsync("fixChartLabels");
 
         }
 
@@ -79,15 +86,20 @@ namespace BlazorApp1.Pages
             ExcelService.SetPromoData(_selectedFile);
 
             PromoDataListChanged.InvokeAsync(PromoDataList).Wait();
+
+             jsRuntime.InvokeVoidAsync("fixChartLabels");
+
         }
 
-        protected override Task OnAfterRenderAsync(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             _dropDown.SelectedItem = _selectedFile;
 
-            //_selectedSheetButtons.Value = _selectedSheet;
+            await jsRuntime.InvokeVoidAsync("fixChartLabels");
 
-            return base.OnAfterRenderAsync(firstRender);
+            //_selectedSheetButtons.Value = _selectedSheet;
+            
+            await base.OnAfterRenderAsync(firstRender);
         }
     }
 }
