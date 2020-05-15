@@ -58,7 +58,7 @@ namespace BlazorApp1.Pages
 
             ExcelService.SetPromoData(_selectedFile);
 
-            ExcelService.SetCurrentSheet();
+            ExcelService.SetCurrentSheet(Settings.Value.DefaultSheet);
 
             await PromoDataListChanged.InvokeAsync(PromoDataList);
 
@@ -87,7 +87,7 @@ namespace BlazorApp1.Pages
 
             PromoDataListChanged.InvokeAsync(PromoDataList).Wait();
 
-             jsRuntime.InvokeVoidAsync("fixChartLabels");
+            jsRuntime.InvokeVoidAsync("fixChartLabels");
 
         }
 
@@ -98,7 +98,7 @@ namespace BlazorApp1.Pages
             await jsRuntime.InvokeVoidAsync("fixChartLabels");
 
             //_selectedSheetButtons.Value = _selectedSheet;
-            
+
             await base.OnAfterRenderAsync(firstRender);
         }
     }
