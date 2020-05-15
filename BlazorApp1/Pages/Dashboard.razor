@@ -6,11 +6,23 @@
 
 <h3 class="myCentre">Dashboard</h3>
 
+<PlotyChartBarBase DivName="plotyLine" InputData="@PromoDataList.GetPlotyDataByDate()"></PlotyChartBarBase>
+<PlotyChartBarBase DivName="plotyHBar" IsHorzontal="true" ChartType="@MyChartType.Bar" InputData="@PromoDataList.GetPlotyDataByDate()"></PlotyChartBarBase>
+<PlotyChartBarBase DivName="plotyBar" ChartType="@MyChartType.Bar" InputData="@PromoDataList.GetPlotyDataByDate()"></PlotyChartBarBase>
+<PlotyChartGaugeBase DivName="plotyGauge" Value="@(PromoDataList == null?0:PromoDataList.Count)" ChartType="@MyChartType.indicator" Title="Total Records"></PlotyChartGaugeBase>
+
+<div id="plotyLine"></div>
+<div id="plotyBar"></div>
+<div id="plotyHBar"></div>
+<div id="plotyGauge"></div>
+
 <div class="row">
     <div class="col-12 shadow p-3 mb-5 rounded">
         <ExcelDatasource @bind-PromoDataList="@PromoDataList"></ExcelDatasource>
     </div>
 </div>
+
+<div id="testPloty"></div>
 
 
 <div class="row">

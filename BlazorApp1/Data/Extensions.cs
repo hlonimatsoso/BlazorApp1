@@ -98,5 +98,29 @@ namespace BlazorApp1.Data
 
             return result;
         }
+
+
+        public static PlotyData GetPlotyDataByDate(this IEnumerable<PromoData> @this)
+        {
+            var result = new PlotyData();
+
+            if (@this != null && @this?.Count() > 0)
+            {
+                var x = @this.GroupBy(p => p.Date);
+
+                foreach (var group in x)
+                {
+                    var xTemp = group.Key.ToShortDateString();
+                    var yTemp = group.Sum(p => p.NumberOfEntries);
+
+                    result.x.Add(xTemp);
+                    result.y.Add(yTemp.ToString());
+                }
+            }
+
+            return result;
+        }
+
+
     }
 }
