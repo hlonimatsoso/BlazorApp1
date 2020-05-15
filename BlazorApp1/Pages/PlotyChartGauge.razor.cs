@@ -15,9 +15,8 @@ namespace BlazorApp1.Pages
             type = ChartType.ToString(),
             value = Value,
             mode = Modes.GaugePlusNumber,
-            title = new PlotyData.Title { text = Title }
+            title = new PlotyData.Title { text = $"{Title} (For the week)" }
 
-            //domain = new PlotyData.Domain { x = { 0, 1 },y= { 0, 1 } }
         };
     }
 }

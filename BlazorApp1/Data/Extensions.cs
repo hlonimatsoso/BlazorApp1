@@ -111,7 +111,28 @@ namespace BlazorApp1.Data
                 foreach (var group in x)
                 {
                     var xTemp = group.Key.ToShortDateString();
-                    var yTemp = group.Sum(p => p.NumberOfEntries);
+                    var yTemp = group.Count();
+
+                    result.x.Add(xTemp);
+                    result.y.Add(yTemp.ToString());
+                }
+            }
+
+            return result;
+        }
+
+        public static PlotyData GetPlotyNumberOfEntiesByGeoLocation(this IEnumerable<PromoData> @this)
+        {
+            var result = new PlotyData();
+
+            if (@this != null && @this?.Count() > 0)
+            {
+                var x = @this.GroupBy(p => p.GeoLocation);
+
+                foreach (var group in x)
+                {
+                    var xTemp = group.Key;
+                    var yTemp = group.Count();
 
                     result.x.Add(xTemp);
                     result.y.Add(yTemp.ToString());
@@ -122,5 +143,91 @@ namespace BlazorApp1.Data
         }
 
 
+        public static PlotyData GetPlotyNumberOfEntiesByStore(this IEnumerable<PromoData> @this)
+        {
+            var result = new PlotyData();
+
+            if (@this != null && @this?.Count() > 0)
+            {
+                var x = @this.GroupBy(p => p.Store);
+
+                foreach (var group in x)
+                {
+                    var xTemp = group.Key;
+                    var yTemp = group.Count();
+
+                    result.x.Add(xTemp);
+                    result.y.Add(yTemp.ToString());
+                }
+            }
+
+            return result;
+        }
+
+        public static PlotyData GetPlotyNumberOfEntiesByHour(this IEnumerable<PromoData> @this)
+        {
+            var result = new PlotyData();
+
+            if (@this != null && @this?.Count() > 0)
+            {
+                var x = @this.GroupBy(p => p.Time);
+
+                foreach (var group in x)
+                {
+                    var xTemp = group.Key;
+                    var yTemp = group.Count();
+
+                    result.x.Add(xTemp);
+                    result.y.Add(yTemp.ToString());
+                }
+            }
+
+            return result;
+        }
+
+        public static PlotyData GetPlotyNumberOfEntiesByCellPhoneNumber(this IEnumerable<PromoData> @this)
+        {
+            var result = new PlotyData();
+
+            if (@this != null && @this?.Count() > 0)
+            {
+                var x = @this.GroupBy(p => p.Entry);
+
+                foreach (var group in x)
+                {
+                    var xTemp = group.Key;
+                    var yTemp = group.Count();
+
+                    result.x.Add(xTemp);
+                    result.y.Add(yTemp.ToString());
+                }
+            }
+
+            return result;
+        }
+
+        public static PlotyData GetPlotyNumberOfEntiesByNumberOfItemsBought(this IEnumerable<PromoData> @this)
+        {
+            var result = new PlotyData();
+
+            if (@this != null && @this?.Count() > 0)
+            {
+                var x = @this.GroupBy(p => p.Entry);
+
+                foreach (var group in x)
+                {
+                    var xTemp = group.Key;
+                    var yTemp = group.Sum(p => p.NumberOfItemsBought);
+
+                    result.x.Add(xTemp.ToString());
+                    result.y.Add(yTemp.ToString());
+                }
+            }
+
+            return result;
+        }
     }
+
+
+
 }

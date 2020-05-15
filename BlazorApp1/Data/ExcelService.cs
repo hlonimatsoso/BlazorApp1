@@ -86,7 +86,7 @@ namespace BlazorApp1.Data
                             result.Add(new Data.PromoData
                             {
                                 Date = DateTime.Parse($"{currentRow.GetCell(0)}"),
-                                Entry = currentRow.GetCell(1).ToString(),
+                                Entry = $"_+{currentRow.GetCell(1).ToString()}",
                                 Time = currentRow.GetCell(2).ToString(),
                                 Store = currentRow.GetCell(3).ToString(),
                                 GeoLocation = currentRow.GetCell(4).ToString(),

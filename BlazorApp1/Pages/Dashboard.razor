@@ -6,39 +6,59 @@
 
 <h3 class="myCentre">Dashboard</h3>
 
-<PlotyChartBarBase DivName="plotyLine" InputData="@PromoDataList.GetPlotyDataByDate()" Title="Entries Per Date"></PlotyChartBarBase>
-<PlotyChartBarBase DivName="plotyHBar" IsHorzontal="true" ChartType="@MyChartType.Bar" InputData="@PromoDataList.GetPlotyDataByDate()" Title="Entries Per Date"></PlotyChartBarBase>
-<PlotyChartBarBase DivName="plotyBar" ChartType="@MyChartType.Bar" InputData="@PromoDataList.GetPlotyDataByDate()" Title="Entries Per Date"></PlotyChartBarBase>
-<PlotyChartGaugeBase DivName="plotyGauge" Value="@(PromoDataList == null?0:PromoDataList.Count)" ChartType="@MyChartType.indicator" Title="Total Records"></PlotyChartGaugeBase>
+<PlotyChartGaugeBase DivName="ByWeek" Value="@(PromoDataList == null?0:PromoDataList.Count)" ChartType="@MyChartType.indicator" Title="Total Records"></PlotyChartGaugeBase>
+<PlotyChartBarBase DivName="ByDay" ChartType="@MyChartType.Bar" IsHorzontal="true" InputData="@PromoDataList.GetPlotyDataByDate()" Title="Entries Per Day"></PlotyChartBarBase>
+<PlotyChartBarBase DivName="ByGeolocation" ChartType="@MyChartType.Bar" InputData="@PromoDataList.GetPlotyNumberOfEntiesByGeoLocation()" Title="Entries By Geolocation"></PlotyChartBarBase>
+<PlotyChartBarBase DivName="ByStore" ChartType="@MyChartType.Line" InputData="@PromoDataList.GetPlotyNumberOfEntiesByStore()" Title="Entries By Store"></PlotyChartBarBase>
+<PlotyChartBarBase DivName="ByHour" ChartType="@MyChartType.Line" InputData="@PromoDataList.GetPlotyNumberOfEntiesByHour()" Title="Entries By Hour"></PlotyChartBarBase>
+<PlotyChartBarBase DivName="ByCellPhone" ChartType="@MyChartType.Bar" InputData="@PromoDataList.GetPlotyNumberOfEntiesByCellPhoneNumber()" Title="Entries By Cell Phone"></PlotyChartBarBase>
+<PlotyChartBarBase DivName="ByNumberOfItemsBought" ChartType="@MyChartType.Bar" InputData="@PromoDataList.GetPlotyNumberOfEntiesByNumberOfItemsBought()" Title="Items Bought Per Entry"></PlotyChartBarBase>
 
 
 <div class="row">
     <div class="col-12 shadow p-3 mb-5 rounded">
-        <ExcelDatasource @bind-PromoDataList="@PromoDataList"></ExcelDatasource>
+        <ExcelDatasource @bind-PromoDataList="@PromoDataList"></ExcelDatasource>A
     </div>
 </div>
 
 <div class="row">
     <div class="col shadow p-3 mb-5 bg-white rounded">
-        <div id="plotyLine"></div>
+        <div id="ByWeek"></div>
     </div>
     <div class="col shadow p-3 mb-5 bg-white rounded">
-        <div id="plotyBar"></div>
+        <div id="ByDay"></div>
+    </div>
+    <div class="col shadow p-3 mb-5 bg-white rounded">
+        <div id="ByStore"></div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col shadow p-3 mb-5 bg-white rounded">
-        <div id="plotyHBar"></div>
-    </div>
-    <div class="col shadow p-3 mb-5 bg-white rounded">
-        <div id="plotyGauge"></div>
+    <div class="col-12 shadow p-3 mb-5 bg-white rounded">
+        <div id="ByGeolocation"></div>
     </div>
 </div>
 
 
+<div class="row">
+    <div class="col shadow p-3 mb-5 bg-white rounded">
+        <div id="ByHour"></div>
+    </div>
+</div>
 
 <div class="row">
+    <div class="col-12 shadow p-3 mb-5 bg-white rounded">
+        <div id="ByNumberOfItemsBought"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 shadow p-3 mb-5 bg-white rounded">
+        <div id="ByCellPhone"></div>
+    </div>
+</div>
+
+@*<div class="row">
     <div class="col-12 shadow p-3 mb-5 pb-5 bg-white rounded">
         <RadzenComponent ChartType="MyChartType.Bar" Source="@PromoDataList.GetPerGeoLocationMetrics()" Title="Geo Location" Description="Per Geo Location"></RadzenComponent>
     </div>
@@ -65,6 +85,6 @@
     <div class="col shadow p-3 mb-5 bg-white rounded">
         <RadzenComponent ChartType="MyChartType.Donut" Source="@PromoDataList.GetPerEntryMetrics()" Title="Entry" Description="Per Entry"></RadzenComponent>
     </div>
-</div>
+</div>*@
 
 
