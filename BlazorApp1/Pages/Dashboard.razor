@@ -6,15 +6,11 @@
 
 <h3 class="myCentre">Dashboard</h3>
 
-<PlotyChartBarBase DivName="plotyLine" InputData="@PromoDataList.GetPlotyDataByDate()"></PlotyChartBarBase>
-<PlotyChartBarBase DivName="plotyHBar" IsHorzontal="true" ChartType="@MyChartType.Bar" InputData="@PromoDataList.GetPlotyDataByDate()"></PlotyChartBarBase>
-<PlotyChartBarBase DivName="plotyBar" ChartType="@MyChartType.Bar" InputData="@PromoDataList.GetPlotyDataByDate()"></PlotyChartBarBase>
+<PlotyChartBarBase DivName="plotyLine" InputData="@PromoDataList.GetPlotyDataByDate()" Title="Entries Per Date"></PlotyChartBarBase>
+<PlotyChartBarBase DivName="plotyHBar" IsHorzontal="true" ChartType="@MyChartType.Bar" InputData="@PromoDataList.GetPlotyDataByDate()" Title="Entries Per Date"></PlotyChartBarBase>
+<PlotyChartBarBase DivName="plotyBar" ChartType="@MyChartType.Bar" InputData="@PromoDataList.GetPlotyDataByDate()" Title="Entries Per Date"></PlotyChartBarBase>
 <PlotyChartGaugeBase DivName="plotyGauge" Value="@(PromoDataList == null?0:PromoDataList.Count)" ChartType="@MyChartType.indicator" Title="Total Records"></PlotyChartGaugeBase>
 
-<div id="plotyLine"></div>
-<div id="plotyBar"></div>
-<div id="plotyHBar"></div>
-<div id="plotyGauge"></div>
 
 <div class="row">
     <div class="col-12 shadow p-3 mb-5 rounded">
@@ -22,7 +18,24 @@
     </div>
 </div>
 
-<div id="testPloty"></div>
+<div class="row">
+    <div class="col shadow p-3 mb-5 bg-white rounded">
+        <div id="plotyLine"></div>
+    </div>
+    <div class="col shadow p-3 mb-5 bg-white rounded">
+        <div id="plotyBar"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col shadow p-3 mb-5 bg-white rounded">
+        <div id="plotyHBar"></div>
+    </div>
+    <div class="col shadow p-3 mb-5 bg-white rounded">
+        <div id="plotyGauge"></div>
+    </div>
+</div>
+
 
 
 <div class="row">

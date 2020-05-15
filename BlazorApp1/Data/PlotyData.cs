@@ -25,7 +25,7 @@ namespace BlazorApp1.Data
         public int value { get; set; }
         public string orientation { get; set; }
 
-
+        public Layout layout { get; set; }
 
         public class Domain
         {
@@ -43,6 +43,24 @@ namespace BlazorApp1.Data
             public string text { get; set; } = "Title Not Set";
         }
 
+    }
+
+    public class Layout
+    {
+        public Layout()
+        {
+            font = new Font();
+        }
+
+        public string title { get; set; } = "Title Not Set";
+
+        public Font font { get; set; }
+
+    }
+
+    public class Font
+    {
+        public string family { get; set; } = "Raleway, sans-serif";
     }
 
 

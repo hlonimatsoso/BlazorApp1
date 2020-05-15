@@ -9,10 +9,13 @@ var fixChartLabels = function () {
     $(".rz-tick-text:odd").css({ '-webkit-transform': 'translate(0,12px)' });
 }
 
-var DrawPolyChart = function (div, data) {
-    console.log("About to draw Ploty");
+var DrawPolyChart = function (div, data, layout) {
+    console.log("About to draw Ploty for: " + div);
+    console.log(data);
+    console.log(layout);
+
     debugger;
-    var layout = { barmode: 'stack' };
-    Plotly.newPlot($("#" + div)[0], [data]);
-    console.log("Done drawing Ploty");
+
+    Plotly.newPlot(div, [data], layout);
+    console.log("Done drawing Ploty for " + div);
 };

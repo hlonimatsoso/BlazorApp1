@@ -26,11 +26,14 @@ namespace BlazorApp1.Pages
 
         protected override Task OnAfterRenderAsync(bool firstRender)
         {
-            jsRuntime.InvokeVoidAsync("DrawPolyChart", DivName, Data);
+            Layout = new Layout { title = Title };
+            jsRuntime.InvokeVoidAsync("DrawPolyChart", DivName, Data, Layout);
             return base.OnAfterRenderAsync(firstRender);
         }
 
         protected PlotyData _plotyData;
+
+        public Layout Layout { get; set; }
 
         public virtual PlotyData Data
         {
@@ -51,9 +54,9 @@ namespace BlazorApp1.Pages
                 }
 
                 _plotyData.type = ChartType.ToString().ToLower();
-                
-                _plotyData.title = new PlotyData.Title { text = Title };
 
+                _plotyData.title.text = Title;
+              
                 return _plotyData;
             }
             set { }
